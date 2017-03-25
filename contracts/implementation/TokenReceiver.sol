@@ -5,7 +5,7 @@ pragma solidity ^0.4.8;
 import "../interface/ERC23Receiver.sol";
 
 contract TokenReceiver is ERC23Receiver {
-  TokenSender token;
+  TokenSender tkn;
 
   struct TokenSender {
     address addr;
@@ -20,10 +20,10 @@ contract TokenReceiver is ERC23Receiver {
     if (!supportsToken(msg.sender)) return false;
 
     // Problem: This will do a sstore which is expensive gas wise. Find a way to keep it in memory.
-    token = TokenSender(msg.sender, _sender, _origin, _value, _data, getSig(_data));
-    isTokenFallback = true;
+    tkn = TokenSender(msg.sender, _sender, _origin, _value, _data, getSig(_data));
+    __isTokenFallback = true;
     if (!address(this).delegatecall(_data)) return false;
-    isTokenFallback = false; // avoid doing an overwrite to .token, which would be more expensive
+    __isTokenFallback = false; // avoid doing an overwrite to .token, which would be more expensive
 
     return true;
   }
@@ -35,10 +35,10 @@ contract TokenReceiver is ERC23Receiver {
     }
   }
 
-  bool isTokenFallback;
+  bool __isTokenFallback;
 
   modifier tokenPayable {
-    if (!isTokenFallback) throw;
+    if (!__isTokenFallback) throw;
     _;
   }
 

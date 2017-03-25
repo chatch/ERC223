@@ -1,3 +1,5 @@
+// Zeppelin tests for ERC20 StandardToken. Run against Standard23Token to check full backwards compatibility.
+
 const assertJump = require('./helpers/assertJump');
 var StandardTokenMock = artifacts.require("./helpers/StandardTokenMock.sol");
 
