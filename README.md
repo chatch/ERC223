@@ -49,19 +49,19 @@ What happens under the hood is that the ERC23 token will detect it is sending to
 
 The current `tkn` values are:
 
-- `tkn.sender`: the original `msg.sender` to the token contract, the address originating the token transfer.
+- `tkn.sender` the original `msg.sender` to the token contract, the address originating the token transfer.
   - For user originated transfers sender will be equal to `tx.origin`
   - For contract originated transfers, `tx.origin` will be the user that made the transaction to that contract.
 
-- `tkn.origin`:the origin address from whose balance the tokens are sent
+- `tkn.origin` the origin address from whose balance the tokens are sent
   - For `transfer()`, it will be the same as `tkn.sender`
   - For `transferFrom()`, it will be the address that created the allowance in the token contract
 
-- `tkn.value`: the amount of tokens sent
-- `tkn.data`: arbitrary data sent with the token transfer. Simulates ether `tx.data`.
-- `tkn.sig`: the first 4 bytes of `tx.data` that determine what function is called.
+- `tkn.value` the amount of tokens sent
+- `tkn.data` arbitrary data sent with the token transfer. Simulates ether `tx.data`.
+- `tkn.sig` the first 4 bytes of `tx.data` that determine what function is called.
 
-### Current implementation
+### Current implementation
 
 This repo's contracts are separated in 3 parts:
 
