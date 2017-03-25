@@ -21,7 +21,7 @@ ERC23 requires contract to implement the `ERC23Receiver` interface in order to r
 
 An example of the high-level API for a receiver contract is:
 
-```
+```solidity
 contract ExampleReceiver is StandardReceiver {
   function foo() tokenPayable {
     LogTokenPayable(tkn.addr, tkn.sender, tkn.value);
@@ -39,7 +39,7 @@ Where functions that have the `tokenPayable` can only be called via a token fall
 
 The function `foo()` will be called when a user transfers ERC23 tokens to the receiver address.
 
-```
+```solidity
   // 0xc2985578 is the identifier for function foo. Sending it in the data parameter of a tx will result in the function being called.
 
   erc23.transfer(receiverAddress, 10, 0xc2985578)
