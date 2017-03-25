@@ -16,7 +16,7 @@ contract StandardReceiver is ERC23Receiver {
     bytes4 sig;
   }
 
-  function tokenFallback(addres _sender, address _origin, uint _value, bytes _data) returns (bool ok) {
+  function tokenFallback(address _sender, address _origin, uint _value, bytes _data) returns (bool ok) {
     if (!supportsToken(msg.sender)) return false;
 
     // Problem: This will do a sstore which is expensive gas wise. Find a way to keep it in memory.
