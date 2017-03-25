@@ -6,6 +6,6 @@ contract ExampleToken is Standard23Token {
   function ExampleToken(uint initialBalance) {
     balances[msg.sender] = initialBalance;
     totalSupply = initialBalance;
-    // Ideally call fallback here too
+    // Ideally call token fallback here too
   }
 }

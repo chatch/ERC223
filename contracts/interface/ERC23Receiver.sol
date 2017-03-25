@@ -7,8 +7,8 @@ Sender: msg.sender to the token contract, the address originating the token tran
           - For user originated transfers sender will be equal to tx.origin
           - For contract originated transfers, tx.origin will be the user that made the tx that produced the transfer.
 Origin: the origin address from whose balance the tokens are sent
-          - For transfer(), from = msg.sender
-          - For transferFrom() from = _from to token contract
+          - For transfer(), origin = msg.sender
+          - For transferFrom() origin = _from to token contract
 Value is the amount of tokens sent
 Data is arbitrary data sent with the token transfer. Simulates ether tx.data
 
