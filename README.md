@@ -1,8 +1,8 @@
-# ERC23 token standard.
+# ERC23 
 
-[![Build Status](https://img.shields.io/travis/AragonOne/ERC23.svg?branch=master&style=flat-square)](https://travis-ci.org/AragonOne/ERC23)
+[![Build Status](https://img.shields.io/travis/AragonOne/ERC23.svg?branch=master&style=flat-square)](https://travis-ci.org/AragonOne/ERC23
 
-ERC23 is a superset of ERC20 token standard. It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development.
+ERC23 is a superset of [ERC20](https://github.com/ethereum/EIPs/issues/20) token standard. It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development.
 
 [See EIP discussion](https://github.com/ethereum/EIPs/issues/223)
 
