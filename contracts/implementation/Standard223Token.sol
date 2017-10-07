@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.15;
 
  /* ERC223 additions to ERC20 */
 
@@ -11,13 +11,13 @@ contract Standard223Token is ERC223, StandardToken {
   //function that is called when a user or another contract wants to transfer funds
   function transfer(address _to, uint _value, bytes _data) returns (bool success) {
     //filtering if the target is a contract with bytecode inside it
-    if (!super.transfer(_to, _value)) throw; // do a normal token transfer
+    if (!super.transfer(_to, _value)) revert(); // do a normal token transfer
     if (isContract(_to)) return contractFallback(msg.sender, _to, _value, _data);
     return true;
   }
 
   function transferFrom(address _from, address _to, uint _value, bytes _data) returns (bool success) {
-    if (!super.transferFrom(_from, _to, _value)) throw; // do a normal token transfer
+    if (!super.transferFrom(_from, _to, _value)) revert(); // do a normal token transfer
     if (isContract(_to)) return contractFallback(_from, _to, _value, _data);
     return true;
   }

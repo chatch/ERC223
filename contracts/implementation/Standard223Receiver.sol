@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.15;
 
  /* ERC223 additions to ERC20 */
 
@@ -41,7 +41,7 @@ contract Standard223Receiver is ERC223Receiver {
   bool __isTokenFallback;
 
   modifier tokenPayable {
-    if (!__isTokenFallback) throw;
+      require(__isTokenFallback);
     _;
   }
 
