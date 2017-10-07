@@ -5,7 +5,7 @@ pragma solidity ^0.4.8;
 import "../interface/ERC223.sol";
 import "../interface/ERC223Receiver.sol";
 
-import "zeppelin/token/StandardToken.sol";
+import "zeppelin-solidity/contracts/token/StandardToken.sol";
 
 contract Standard223Token is ERC223, StandardToken {
   //function that is called when a user or another contract wants to transfer funds
