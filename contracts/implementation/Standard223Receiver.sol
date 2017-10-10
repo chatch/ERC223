@@ -16,7 +16,31 @@ contract Standard223Receiver is ERC223Receiver {
     bytes4 sig;
   }
 
-  function tokenFallback(address _sender, address _origin, uint _value, bytes _data) returns (bool ok) {
+  /**
+   * This is called by the token contract after token transfer.
+   *
+   * A function signature is extracted from the first 4 bytes of _data and a
+   * a delegatecall is made to that function.
+   *
+   * Call details are stored in tkn which the derivative contact has access too.
+   *
+   * @param _sender Address that called token.transfer() or token.transferFrom()
+   * @param _origin If token.transfer() called this is the same as _sender
+   *    if token.transferFrom() called this is the from address in the transfer
+   * @param _value Number of tokens
+   * @param _data Bytes containing the signature of the function to call on the
+   *    receiver (1st 4 bytes) plus any other data specific to the call.
+   *
+   * @return ok True if the call was successful.
+   */
+  function tokenFallback(
+    address _sender,
+    address _origin,
+    uint _value,
+    bytes _data
+  )
+    returns (bool ok)
+  {
     if (!supportsToken(msg.sender)) return false;
 
     // Problem: This will do a sstore which is expensive gas wise. Find a way to keep it in memory.
@@ -31,7 +55,10 @@ contract Standard223Receiver is ERC223Receiver {
     return true;
   }
 
-  function getSig(bytes _data) private returns (bytes4 sig) {
+  function getSig(bytes _data)
+    private
+    returns (bytes4 sig)
+  {
     uint l = _data.length < 4 ? _data.length : 4;
     for (uint i = 0; i < l; i++) {
       sig = bytes4(uint(sig) + uint(_data[i]) * (2 ** (8 * (l - 1 - i))));
@@ -45,5 +72,11 @@ contract Standard223Receiver is ERC223Receiver {
     _;
   }
 
-  function supportsToken(address token) returns (bool);
+  /**
+   * Check the token contract that is calling tokenFallback is supported by this
+   *  receiver contract.
+   *
+   * @param _token Token contract that called this receiver
+   */
+  function supportsToken(address _token) returns (bool);
 }
