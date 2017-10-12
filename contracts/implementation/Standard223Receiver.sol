@@ -59,10 +59,21 @@ contract Standard223Receiver is ERC223Receiver {
     private
     returns (bytes4 sig)
   {
-    uint l = _data.length < 4 ? _data.length : 4;
-    for (uint i = 0; i < l; i++) {
-      sig = bytes4(uint(sig) + uint(_data[i]) * (2 ** (8 * (l - 1 - i))));
-    }
+    if (_data.length < 4) return bytes4(0x0);
+    return extract4Bytes(_data, 0);
+  }
+
+  function extract4Bytes(bytes data, uint pos)
+    internal
+    constant
+    returns (bytes4 slice)
+  {
+      assert(pos + 4 <= data.length);
+      bytes4 mask = 0;
+      for (uint i = 0; i < 4; i++) {
+          slice = slice | bytes4((mask | (data[i+pos])) >> (8 * i));
+      }
+      return slice;
   }
 
   bool __isTokenFallback;
