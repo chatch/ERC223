@@ -7,6 +7,7 @@ import "../interface/ERC223Receiver.sol";
 contract Standard223Receiver is ERC223Receiver {
   Tkn tkn;
 
+  // see tokenTransfer() comments below
   struct Tkn {
     address addr;
     address sender;
@@ -63,15 +64,15 @@ contract Standard223Receiver is ERC223Receiver {
     return extract4Bytes(_data, 0);
   }
 
-  function extract4Bytes(bytes data, uint pos)
+  function extract4Bytes(bytes _data, uint _pos)
     internal
     constant
     returns (bytes4 slice)
   {
-      assert(pos + 4 <= data.length);
+      assert(_pos + 4 <= _data.length);
       bytes4 mask = 0;
       for (uint i = 0; i < 4; i++) {
-          slice = slice | bytes4((mask | (data[i+pos])) >> (8 * i));
+          slice = slice | bytes4((mask | (_data[i+_pos])) >> (8 * i));
       }
       return slice;
   }
